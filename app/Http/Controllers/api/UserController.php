@@ -59,6 +59,7 @@ class UserController extends Controller
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $success['name'] =  $user->name;
+        $success['email'] =  $user->email;
         return response()->json(['success' => $success]);
     }
     /** 
