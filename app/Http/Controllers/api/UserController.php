@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\api;
 
+use Laravel\Passport\RefreshToken;
+use Laravel\Passport\Token;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -71,5 +73,16 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return response()->json(['success' => $user], $this->successStatus);
-    } 
+    }
+    public function logout()
+    {
+        $user = Auth::user()->token();
+        $user->revoke();
+        return 'logged out'; 
+        // Auth::user()->tokens->each(function ($token, $key) {
+        //     $token->delete();
+        // });
+
+        // return response()->json('Successfully logged out');
+    }
 }
